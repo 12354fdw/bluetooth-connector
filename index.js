@@ -42,15 +42,19 @@ function rssiword(rssi) {
     }
 }
 
+function sets(c,t) {
+    pStatus.style.backgroundColor = c
+    pStatus.textContent = "Status: "+t
+}
 
 bConnect.addEventListener("click",async()=>{
     console.log("START CONNECTION")
     device=await navigator.bluetooth.requestDevice({acceptAllDevices:true})
     console.log("GOT PERMISSION, STARTING GATT",server)
 
-    pStatus.textContent = "Status: Connecting"
+    set("yellow","Connecting")
     server = await device.gatt.connect()
-    pStatus.textContent = "Status: Connected"
+    set("green","Connected")
 
     device.watchAdvertisements()
     device.onadvertisementreceived = (event) => {
@@ -63,9 +67,9 @@ bConnect.addEventListener("click",async()=>{
     }
     device.ongattserverdisconnected = async() => {
         renderStat()
-        pStatus.textContent = "Status: Reconnecting!"
+        set("yellow","Reconnecting")
         await device.gatt.connect()
-        pStatus.textContent = "Status: Connected"
+        set("green","Connected")
     }
 })
 
