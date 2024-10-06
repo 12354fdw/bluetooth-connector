@@ -42,7 +42,7 @@ function rssiword(rssi) {
     }
 }
 
-function sets(c,t) {
+function set(c,t) {
     pStatus.style.backgroundColor = c
     pStatus.textContent = "Status: "+t
 }
